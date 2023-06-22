@@ -1,6 +1,5 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { open } from '@tauri-apps/api/dialog';
-import { appDir } from '@tauri-apps/api/path';
 
 
 let greetInputEl: HTMLInputElement | null;
@@ -24,15 +23,13 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const selected = await open({
-  directory: true,
-  multiple: true,
-  defaultPath: await appDir(),
+let btnExcelFile = document.querySelector("#btnSelectExcelFile");
+btnExcelFile?.addEventListener("click", async () => {
+  const selected = await open({
+    multiple: false,
+    filters: [
+      { name: 'Excel', extensions: ['xlsx'] }
+    ]
+  });
+  console.log(selected);
 });
-if (Array.isArray(selected)) {
-  // user selected multiple directories
-} else if (selected === null) {
-  // user cancelled the selection
-} else {
-  // user selected a single directory
-}

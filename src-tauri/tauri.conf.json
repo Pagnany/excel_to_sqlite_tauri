@@ -37,9 +37,9 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "excel_to_sqlite",
-        "width": 800,
-        "height": 600
+        "title": "Excel zu SQLite",
+        "width": 1280,
+        "height": 720
       }
     ]
   }
