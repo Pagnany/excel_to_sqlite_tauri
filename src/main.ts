@@ -1,5 +1,8 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { open } from '@tauri-apps/api/dialog';
+import { appDataDir } from '@tauri-apps/api/path';
+
+var appDataDirPath = await appDataDir();
 
 
 let greetInputEl: HTMLInputElement | null;
@@ -30,11 +33,12 @@ btnExcelFile?.addEventListener("click", async () => {
       { name: 'Excel', extensions: ['xlsx'] }
     ]
   });
-  console.log(selected);
-  let testdata: string = await invoke("get_excel_column_names", {path: selected});
+
+  let testdata: string = await invoke("get_excel_column_names", {xlsxpath: selected});
   
-  // testdata is ja json object put it in an object
+  // testdata is a json object put it in an object
   let testdata2: string[] = JSON.parse(testdata);
+
   let divExcelColumns = document.querySelector("#divExcelColumns");
   for (let i = 0; i < testdata2.length; i++) {
     // print i and testdata2[i] in a table

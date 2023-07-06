@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 use calamine::{open_workbook, Reader, Xlsx};
-use serde::{Deserialize, Serialize};
 
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
@@ -18,9 +17,9 @@ fn main() {
 }
 
 #[tauri::command]
-fn get_excel_column_names (path: String) -> String {
+fn get_excel_column_names (xlsxpath: String) -> String {
     
-    let mut excel: Xlsx<_> = open_workbook(path).unwrap();
+    let mut excel: Xlsx<_> = open_workbook(xlsxpath).unwrap();
     let mut names: Vec<String> = Vec::new();
     if let Some(Ok(r)) = excel.worksheet_range("EIS-DTA") {
         for row in r.rows() {
